@@ -9,3 +9,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+jwt:
+  secret: ${JWT_SECRET:this-is-a-local-dev-only-secret-key-not-for-production-use}
+  expiration-ms: 3600000
