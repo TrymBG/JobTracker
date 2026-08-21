@@ -29,11 +29,17 @@ public class AuthController {
     }
 
     @PostMapping("/api/auth/register")
-    public void registerUser(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<Void> registerUser(@RequestBody RegisterRequest registerRequest) {
         String username = registerRequest.getUsername();
         String password = registerRequest.getPassword();
 
-        userService.registerUser(username, password);
+        try {
+            userService.registerUser(username, password);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/api/auth/login")
